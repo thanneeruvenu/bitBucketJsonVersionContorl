@@ -1,0 +1,38 @@
+micronaut:
+  application:
+    name: microproject
+
+  server:
+    cors:
+      enabled: true
+
+  codec:
+    json:
+      additionalTypes:
+        - text/javascript
+
+  router:
+    static-resources:
+      main:
+        paths: classpath:sample
+        mapping: /bitbucket
+
+#bitbucket:
+#  api:
+#    url: https://api.bitbucket.org
+#    version: 2.0
+#    workspace: pri_nshu
+#    repo_slug: json-info
+#    branch_name: master
+#    username: rpriyanshum@gmail.com
+#    password: EllucianWork@1
+
+bitbucket:
+  api:
+    url: https://api.bitbucket.org
+    version: 2.0
+    username: thanneeruvenu@gmail.com
+    password: Pa$$word_Gopal_60
+    workspace: thanneeruvenu
+    repo_slug: demoreponew
+    branch_name: master
