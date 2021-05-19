@@ -18,6 +18,7 @@ const Create = ({ history }) => {
   const [open, setOpen] = useState(false);
   const [projectDropdown, setProjectDropdown] = useState([]);
   const [repoName, setRepoName] = useState("");
+  const [repoNames, setRepoNames] = useState([]);
 
   useEffect(() => {
     console.log(Date.now());
@@ -58,9 +59,21 @@ const Create = ({ history }) => {
   };
 
   const openRepo = () => {
-    setVisible(true);
-    setRepo(true);
+    connectProject().then(()=>{
+      setVisible(true);
+      setRepo(true);
+    });
   };
+
+  const getRepoNames = async () => {
+    await axios.get('http://localhost:8080/bitbucket/totalRepo')
+        .then((res) => {
+          console.log(res,"response")
+          const repoNames =  res.data[0].values.map((item)=> {return item.name})
+          setRepoNames(repoNames)
+        });
+  }
+
 
   const close = () => {
     setVisible(false);
@@ -180,13 +193,13 @@ const Create = ({ history }) => {
       <div className="fetch">
         <div onClick={openProject} className="box">
           <span className="box-1">
-            <i class="fas fa-plus-circle"></i>
+            <i className="fas fa-plus-circle"></i>
           </span>
           <span className="box-2">Create Project</span>
         </div>
         <div onClick={openRepo} className="box">
           <span className="box-1">
-            <i class="fas fa-plus-circle"></i>
+            <i className="fas fa-plus-circle"></i>
           </span>
           <span className="box-2">Create Repository</span>
         </div>
@@ -202,7 +215,7 @@ const Create = ({ history }) => {
       >
         <div className="x">
           <span onClick={close}>
-            <i class="fas fa-times"></i>
+            <i className="fas fa-times"></i>
           </span>
         </div>
         {project && (
@@ -352,7 +365,7 @@ const Create = ({ history }) => {
 
       <center style={{ margin: "1rem" }} onClick={() => setOpen(!open)}>
         {" "}
-        <Button type="primary">Create File</Button>
+        <Button type="primary" onClick={getRepoNames}>Create File</Button>
       </center>
       {open && (
         <div>
@@ -360,15 +373,38 @@ const Create = ({ history }) => {
           <div className="repository-input">
             <label className="label">
               Repository Name:{" "}
-              <input className="dataValue"
+              {/*<input className="dataValue"
                 value={repoName}
                 placeholder="Repository Name"
                 onChange={(e) => {
                   setRepoName(e.target.value);
                 }}
                 type="text"
-              />
+              />*/}
             </label>
+            <Select
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select Repository"
+                optionFilterProp="children"
+                onChange={(value) => {
+                  setRepoName(value);
+                }}
+                filterOption={(input, option) =>
+                    option.children.toLowerCase().indexOf(input.toLowerCase()) >=
+                    0
+                }
+                filterSort={(optionA, optionB) =>
+                    optionA.children
+                        .toLowerCase()
+                        .localeCompare(optionB.children.toLowerCase())
+                }
+            >
+              {repoNames.length > 0 &&
+              repoNames.map((m, index) => (
+                  <option value={m} key={index}>{m}</option>
+              ))}
+            </Select>
             </div>
           </center>
           

@@ -31,10 +31,10 @@ const Main = () => {
     <div className="main">
       <div className="main-1">
         <span onClick={() => fetch("/fetch")} style={active("/fetch")}>
-          <i class="fas fa-file-download"></i> Fetch
+          <i className="fas fa-file-download"></i> Fetch
         </span>
         <span onClick={() => fetch("/create")} style={active("/create")}>
-          <i class="far fa-plus-square"></i> Create
+          <i className="far fa-plus-square"></i> Create
         </span>
         
       </div>

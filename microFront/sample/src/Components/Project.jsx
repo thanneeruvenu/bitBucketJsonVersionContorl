@@ -32,7 +32,7 @@ const Project = () => {
           </div>
       <div className="project-cont">
           {
-              project.length>0 && project.reverse().map((m,ind)=>(<span className="project">{ind+1}{"."}{" "}{m.name}</span>))
+              project.length>0 && project.reverse().map((m,ind)=>(<span className="project" key={ind}>{ind+1}{"."}{" "}{m.name}</span>))
           }
       </div>
            

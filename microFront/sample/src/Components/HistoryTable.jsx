@@ -65,7 +65,7 @@ const HistoryTable = ({ fileData, selectedFile, selectedRepo }) => {
       )
       .then((res) => {
         console.log(res);
-        setSingleData(res.data);
+        setSingleData({...res.data});
 
         jsdata = res.data;
         showModal();
@@ -91,12 +91,14 @@ const HistoryTable = ({ fileData, selectedFile, selectedRepo }) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    setSingleData({})
+    const temp = {}
+    setSingleData(temp)
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setSingleData({})
+    const temp = {}
+    setSingleData(temp)
   };
   return (
     <div className="table">
@@ -108,7 +110,7 @@ const HistoryTable = ({ fileData, selectedFile, selectedRepo }) => {
         width="60%"
       >
         <div style={{ padding: "3rem" }}>
-          {Object.keys(singleData).length>0&&<Editor value={singleData} onChange={() => {}} />}
+          {singleData && Object.keys(singleData).length>0&&<Editor key={singleData.fileTimestamp} value={singleData} onChange={() => {}} />}
         </div>
       </Modal>
       <Table columns={columns} dataSource={data} />

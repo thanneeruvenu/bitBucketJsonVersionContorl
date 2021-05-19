@@ -127,7 +127,7 @@ const Filehistory = () => {
                 }
               >
                 {project.length > 0 &&
-                  project.map((m) => <option value={m.key}>{m.name}</option>)}
+                  project.map((m,index) => <option value={m.key} key={index}>{m.name}</option>)}
               </Select>
             </div>
             {selectedproject && (
@@ -151,7 +151,7 @@ const Filehistory = () => {
                   }
                 >
                   {repo.length > 0 &&
-                    repo.map((m) => <option value={m.name}>{m.name}</option>)}
+                    repo.map((m,index) => <option value={m.name} key={index}>{m.name}</option>)}
                 </Select>
               </div>
             )}
@@ -179,7 +179,7 @@ const Filehistory = () => {
                   }
                 >
                   {files.length > 0 &&
-                    files.map((m) => <option value={m.path}>{m.path}</option>)}
+                    files.map((m,index) => <option value={m.path} key={index}>{m.path}</option>)}
                 </Select>
               </div>
             )}
